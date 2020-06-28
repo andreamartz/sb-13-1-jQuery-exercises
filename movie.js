@@ -33,7 +33,16 @@ $("#movie-rating-form").on("submit", function (event) {
 });
 
 // ******* DELETE MOVIE (event listener) *******
-$("#movie-data").on("click", ".delete", function (event) {});
+$("#movies-data-body").on("click", ".delete", function (event) {
+  // WORKS!!
+  const $row = $(event.target).closest("tr");
+  $targetTitle = $row.children().eq(0).text();
+  const indexToRemove = movieData.findIndex(
+    (movie) => movie.title === $targetTitle
+  );
+  movieData.splice(indexToRemove, 1);
+  deleteRow($row);
+});
 
 // ****** GET FORM DATA & CREATE NEW MOVIE *******
 function createMovie() {
@@ -63,4 +72,6 @@ function renderMovies(movieData) {
 }
 
 // ********* DELETE MOVIE ********
-function deleteMovie(movie) {}
+function deleteRow($row) {
+  $row.remove();
+}
