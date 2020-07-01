@@ -6,6 +6,10 @@
     <title>Document</title>
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
@@ -44,8 +48,13 @@
       <table class="table table-striped" id="movies-data">
         <thead>
           <tr>
-            <th scope="col">Movie</th>
-            <th scope="col">Rating</th>
+            <th scope="col">
+              Movie
+              <i data-sort="title" class="fa fa-sort-up" aria-hidden="true"></i>
+            </th>
+            <th scope="col">
+              Rating <i data-sort="rating" class="fa fa-sort-up"></i>
+            </th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
@@ -59,26 +68,6 @@
               </button>
             </td>
           </tr>
-          <!-- <tr>
-            <th scope="row">2</th>
-            <td>Movie 2</td>
-            <td>2</td>
-            <td>
-              <button type="button" class="btn btn-danger delete">
-                Delete
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Movie 3</td>
-            <td>3</td>
-            <td>
-              <button type="button" class="btn btn-danger delete">
-                Delete
-              </button>
-            </td>
-          </tr> -->
         </tbody>
       </table>
     </div>

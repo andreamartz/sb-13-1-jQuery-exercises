@@ -33,6 +33,7 @@ $("#movie-rating-form").on("submit", function (event) {
 });
 
 // ******* DELETE MOVIE (event listener) *******
+// when delete button is clicked, remove the parent tr and remove the movie from movieData
 $("#movies-data-body").on("click", ".delete", function (event) {
   // WORKS!!
   const $row = $(event.target).closest("tr");
@@ -41,17 +42,20 @@ $("#movies-data-body").on("click", ".delete", function (event) {
     (movie) => movie.title === $targetTitle
   );
   movieData.splice(indexToRemove, 1);
-  deleteRow($row);
+  $row.remove();
 });
 
 // ****** GET FORM DATA & CREATE NEW MOVIE *******
 function createMovie() {
   // WORKS!!
-  let movie = {
-    id: 1,
-    title: $("#movie-title").val(),
-    rating: parseInt($("#movie-rating").val()),
-  };
+  if ($("#movie-title").val().length < 2) {
+    return;
+  }
+  let title = $("#movie-title").val();
+  let rating = parseInt($("#movie-rating").val());
+
+  let movie = { title, rating };
+
   return movie;
 }
 
@@ -71,7 +75,41 @@ function renderMovies(movieData) {
   }
 }
 
-// ********* DELETE MOVIE ********
-function deleteRow($row) {
-  $row.remove();
+// ***** ADD listener to sort *****
+$(".fas").on("click", function (event) {
+  const keyToSort = $("event.target").attr("data-sort");
+  const sortDirection = $(event.target).hasClass("fa-sort-down")
+    ? "down"
+    : "up";
+
+  sortMovies(movieData, keyToSort, sortDirection);
+
+  $(event.target).toggleClass("fa-sort-down");
+  $(event.target).toggleClass("fa-sort-up");
+});
+
+// ****** SORT MOVIES ************
+
+function sortMovies(movieData, keyToSort, sortDirection) {
+  movieData.sort((a, b) => {
+    // a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+    if (keyToSort === "rating") {
+      a[keyToSort] = +a[keyToSort];
+      b[keyToSort] = +b[keyToSort];
+    }
+    if (a[keyToSort] < b[keyToSort]) {
+      return sortDirection === "up" ? -1 : 1;
+    } else if (a[keyToSort] > b[keyToSort]) {
+      return sortDirection === "up" ? 1 : -1;
+    } else {
+      return 0;
+    }
+  });
+  renderMovies(movieData);
+  return movieData;
 }
+
+// ********* DELETE MOVIE ********
+// function deleteRow($row) {
+//   $row.remove();
+// }
