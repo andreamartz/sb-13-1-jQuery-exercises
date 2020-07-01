@@ -76,8 +76,10 @@ function renderMovies(movieData) {
 }
 
 // ***** ADD listener to sort *****
-$(".fas").on("click", function (event) {
-  const keyToSort = $("event.target").attr("data-sort");
+$(".fa").on("click", function (event) {
+  console.log(event.target);
+  const keyToSort = $(event.target).attr("data-sort");
+  console.log("key to sort: ", keyToSort);
   const sortDirection = $(event.target).hasClass("fa-sort-down")
     ? "down"
     : "up";
